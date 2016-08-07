@@ -9,11 +9,13 @@ defmodule HexGrid.Hex do
   """
 
   defstruct q: 0, r: 0, s: 0
-  @type t :: %Hex{q: number, r: number, s: number}
+  @typedoc "Hex Tile"
+  @type t :: %__MODULE__{q: number, r: number, s: number}
 
   @doc ~S"""
   Creates a new hex tile
   """
+  @spec new(number, number, number) :: t
   def new(q, r, s) do
     %Hex{q: q, r: r, s: s}
   end
@@ -26,6 +28,7 @@ defmodule HexGrid.Hex do
   iex> Hex.add(%Hex{q: 1, r: 1, s: 1}, %Hex{q: 1, r: 1, s: 1})
   %Hex{q: 2, r: 2, s: 2}
   """
+  @spec add(t, t) :: t
   def add(first, second) do
     %Hex{q: first.q + second.q, r: first.r + second.r, s: first.s + second.s}
   end
