@@ -1,6 +1,8 @@
-defmodule Hex do
+defmodule HexGrid.Hex do
+  alias HexGrid.Hex, as: Hex
+
   @moduledoc """
-  Hex module. See this excelent article for
+  Hex Tile module. See this excelent article for
   reference:
 
   http://www.redblobgames.com/grids/hexagons/implementation.html

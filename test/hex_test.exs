@@ -1,4 +1,6 @@
 defmodule HexTileTest do
+  alias HexGrid.Hex, as: Hex
+
   use ExUnit.Case, async: true
   doctest Hex
 
