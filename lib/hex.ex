@@ -14,6 +14,11 @@ defmodule HexGrid.Hex do
 
   @doc ~S"""
   Creates a new hex tile
+
+  ## Examples
+
+  iex> Hex.new(1, 1, 1)
+  %Hex{q: 1, r: 1, s: 1}
   """
   @spec new(number, number, number) :: t
   def new(q, r, s) do

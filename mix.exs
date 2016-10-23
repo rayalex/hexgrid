@@ -17,7 +17,7 @@ defmodule Hex.Mixfile do
   end
 
   defp deps do
-    [{:ex_doc, "~> 0.13.0", only: :dev}]
+    [{:ex_doc, "~> 0.14", only: :dev}]
   end
 
   defp description do
@@ -29,7 +29,7 @@ defmodule Hex.Mixfile do
   defp package do
     [
       name: :hexgrid,
-      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Aleksandar Dragojevic"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/rayalex/hex"}

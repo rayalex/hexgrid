@@ -6,6 +6,7 @@ defmodule HexGrid.Map do
   """
 
   defstruct [data: Map.new]
+  @typedoc "Map"
   @type t :: %HexGrid.Map{data: Map.t}
 
   @typedoc "Result returned from Map functions"
