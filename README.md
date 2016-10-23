@@ -10,7 +10,7 @@ _See [hex package](https://hex.pm/packages/hexgrid/1.0.0) and [docs](https://hex
 
 The package can be installed by listing it as a `hex` dependency:
 
-```
+```elixir
 def deps do
   [{:hexgrid, "~> 1.0"}]
 end
@@ -18,7 +18,7 @@ end
 
 ## Usage
 
-```
+```elixir
 alias HexGrid.Map, as: HexMap
 alias HexGrid.Hex, as: Hex
 ```
@@ -33,7 +33,7 @@ Create a tile in a cube coordinate system.
 
 Example:
 
-```
+```elixir
 Hex.new(1, 2, 3)
 ```
 
@@ -41,7 +41,7 @@ Hex.new(1, 2, 3)
 
 Gets the neighbouring hex. Neighbours are just offsets on the given hex:
 
-```
+```elixir
 0 -> Hex.new(+1, -1, 0)
 1 -> Hex.new(+1, 0, -1)
 2 -> Hex.new(0, +1, -1)
@@ -52,7 +52,7 @@ Gets the neighbouring hex. Neighbours are just offsets on the given hex:
 
 Example:
 
-```
+```elixir
 Hex.neighbours(Hex.new(0, 0, 0))
 ```
 
@@ -62,7 +62,7 @@ For a given hex tile, get all adjacent tiles.
 
 Example:
 
-```
+```elixir
 Hex.neightbours(Hex.new(0, 0, 0))
 ```
 
@@ -79,7 +79,7 @@ Creates an empty map.
 
 Example:
 
-```
+```elixir
 Map.new()
 ```
 
@@ -89,7 +89,7 @@ Creastes a hexagonal-shaped map with a given radius.
 
 Example:
 
-```
+```elixir
 Map.new_hex(5)
 ```
 
@@ -99,7 +99,7 @@ Adds tile to the map.
 
 Example:
 
-```
+```elixir
 {:ok, map} = HexMap.new()
 {result, map} = HexMap.insert(map, Hex.new(0, 0, 0))
 ```
@@ -110,7 +110,7 @@ Sets an arbitrary value on a map, for a given tile.
 
 Example:
 
-```
+```elixir
 hex = Hex.new(0, 0, 0)
 {_, map} = HexMap.new()
 {_, map} = HexMap.insert(map, hex)
@@ -124,7 +124,7 @@ Gets the value from the map, for a given tile.
 
 Example:
 
-```
+```elixir
 hex = Hex.new(0, 0, 0)
 {_, map} = HexMap.new()
 {_, map} = HexMap.insert(map, hex)
