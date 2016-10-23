@@ -2,7 +2,7 @@
 
 Create hexagonal grids in Elixir. Provides basic computational and mapping support.
 
-Work is based on [this excellent article](http://www.redblobgames.com/grids/hexagons/implementation.html) from [redblobgames](http://www.redblobgames.com/). 
+Work is based on [this excellent article](http://www.redblobgames.com/grids/hexagons/implementation.html) from [redblobgames](http://www.redblobgames.com/).
 
 _See [hex package](https://hex.pm/packages/hexgrid/1.0.0) and [docs](https://hexdocs.pm/hexgrid/1.0.0) for more details._
 
@@ -14,7 +14,7 @@ The package can be installed by listing it as a `hex` dependency:
 def deps do
   [{:hexgrid, "~> 1.0"}]
 end
-``` 
+```
 
 ## Usage
 
@@ -58,24 +58,23 @@ Hex.neighbours(Hex.new(0, 0, 0))
 
 #### neighbours(hex)
 
-For a given hex tile, get all adjacent tiles. 
+For a given hex tile, get all adjacent tiles.
 
 Example:
 
 ```elixir
-Hex.neightbours(Hex.new(0, 0, 0))
+Hex.neighbours(Hex.new(0, 0, 0))
 ```
 
 ### Map
 
-Provides support for creating and maintining tile structures, as well as containing tile data. 
+Provides support for creating and maintaining tile structures, as well as containing tile data.
 
 _Note: Examples alias `HexGrid.Map` as `Map`_
 
 #### new()
 
 Creates an empty map.
-
 
 Example:
 
@@ -85,7 +84,7 @@ Map.new()
 
 #### new_hex(radius)
 
-Creastes a hexagonal-shaped map with a given radius.
+Utility to create a hexagonal-shaped map with a given radius.
 
 Example:
 
@@ -95,7 +94,7 @@ Map.new_hex(5)
 
 #### insert(map, tile)
 
-Adds tile to the map. 
+Adds tile to the map.
 
 Example:
 
