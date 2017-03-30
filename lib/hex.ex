@@ -17,11 +17,15 @@ defmodule HexGrid.Hex do
 
   ## Examples
 
-  iex> Hex.new(1, 1, 1)
-  %Hex{q: 1, r: 1, s: 1}
+  iex> Hex.new(0, 1, -1)
+  %Hex{q: 0, r: 1, s: -1}
   """
   @spec new(number, number, number) :: t
   def new(q, r, s) do
+    if q + r + s != 0 do
+      raise ArgumentError, "Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:#{q}, r:#{r}, s:#{s}} do not sum to 0"
+    end
+
     %Hex{q: q, r: r, s: s}
   end
 
@@ -30,8 +34,8 @@ defmodule HexGrid.Hex do
 
   ## Examples
 
-  iex> Hex.add(%Hex{q: 1, r: 1, s: 1}, %Hex{q: 1, r: 1, s: 1})
-  %Hex{q: 2, r: 2, s: 2}
+  iex> Hex.add(%Hex{q: 0, r: 1, s: -1}, %Hex{q: 0, r: 1, s: -1})
+  %Hex{q: 0, r: 2, s: -2}
   """
   @spec add(t, t) :: t
   def add(first, second) do
@@ -43,8 +47,8 @@ defmodule HexGrid.Hex do
 
   ## Examples
 
-  iex> Hex.sub(Hex.new(0, 0, 0), Hex.new(1, 1, 1))
-  %Hex{q: -1, r: -1, s: -1}
+  iex> Hex.sub(Hex.new(0, 0, 0), Hex.new(0, 1, -1))
+  %Hex{q: 0, r: -1, s: 1}
   """
   def sub(first, second) do
     %Hex{q: first.q - second.q, r: first.r - second.r, s: first.s - second.s}
@@ -52,11 +56,8 @@ defmodule HexGrid.Hex do
 
   @doc ~S"""
   Multiples two hexes together
+  This is broken and maybe needs clarification for purpose
 
-  ## Examples
-
-  iex> Hex.mul(Hex.new(2, 2, 2), Hex.new(3, 3, 3))
-  %Hex{q: 6, r: 6, s: 6}
   """
   def mul(first, second) do
     %Hex{q: first.q * second.q, r: first.r * second.r, s: first.s * second.s}
@@ -70,8 +71,8 @@ defmodule HexGrid.Hex do
   iex> Hex.length(Hex.new(0, 0, 0))
   0
 
-  iex> Hex.length(Hex.new(1, 1, 1))
-  2
+  iex> Hex.length(Hex.new(0, 1, -1))
+  1
   """
   def length(hex) do
     round((abs(hex.q) + abs(hex.r) + abs(hex.s)) / 2)
@@ -82,8 +83,8 @@ defmodule HexGrid.Hex do
 
   ## Examples
 
-  iex> Hex.distance(Hex.new(0, 0, 0), Hex.new(1, 1, 1))
-  2
+  iex> Hex.distance(Hex.new(0, 0, 0), Hex.new(0, 1, -1))
+  1
 
   iex> Hex.distance(Hex.new(0, 0, 0), Hex.new(1, 1, -2))
   2
@@ -147,6 +148,35 @@ defmodule HexGrid.Hex do
   """
   def neighbours(hex) do
     Enum.map(1..5, fn (x) -> neighbour(hex, x) end)
+  end
+
+  @doc ~S"""
+  Gets all hexes within a certain distance of the given hex
+
+  ## Examples
+
+  iex> Hex.neighbourhood(Hex.new(0, 1, -1), 0)
+  [
+    %Hex{q: 0, r: 1, s: -1},
+  ]
+
+  iex> Hex.neighbourhood(Hex.new(0, 1, -1), 2)
+  [%HexGrid.Hex{q: -2, r: 1, s: 1}, %HexGrid.Hex{q: -2, r: 2, s: 0},
+   %HexGrid.Hex{q: -2, r: 3, s: -1}, %HexGrid.Hex{q: -1, r: 0, s: 1},
+   %HexGrid.Hex{q: -1, r: 1, s: 0}, %HexGrid.Hex{q: -1, r: 2, s: -1},
+   %HexGrid.Hex{q: -1, r: 3, s: -2}, %HexGrid.Hex{q: 0, r: -1, s: 1},
+   %HexGrid.Hex{q: 0, r: 0, s: 0}, %HexGrid.Hex{q: 0, r: 1, s: -1},
+   %HexGrid.Hex{q: 0, r: 2, s: -2}, %HexGrid.Hex{q: 0, r: 3, s: -3},
+   %HexGrid.Hex{q: 1, r: -1, s: 0}, %HexGrid.Hex{q: 1, r: 0, s: -1},
+   %HexGrid.Hex{q: 1, r: 1, s: -2}, %HexGrid.Hex{q: 1, r: 2, s: -3},
+   %HexGrid.Hex{q: 2, r: -1, s: -1}, %HexGrid.Hex{q: 2, r: 0, s: -2},
+   %HexGrid.Hex{q: 2, r: 1, s: -3}]
+  """
+  def neighbourhood(hex, distance) do
+    for dq <- -distance..distance,
+        dr <- Enum.max([-distance, -dq - distance])..Enum.min([distance, -dq + distance]) do
+          Hex.add(hex, Hex.new(dq, dr, -dq - dr))
+        end
   end
 
   defp direction(dir) do
