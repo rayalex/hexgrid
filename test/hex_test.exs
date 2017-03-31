@@ -5,51 +5,63 @@ defmodule HexTileTest do
   doctest Hex
 
   describe "Hex.new/3" do
-    test "init returns hex" do
-      assert Hex.new(0, 1, -1) != nil
+    test "new returns hex with status" do
+      assert {:ok, hex} = Hex.new(0, 1, -1)
+      assert hex != nil
     end
 
     test "raises error on invalid hex" do
-      assert_raise ArgumentError, fn -> Hex.new(1, 1, 1) end
+      assert {:error, message} = Hex.new(0, 1, 1)
+      assert message == "Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:0, r:1, s:1} do not sum to 0"
+    end
+  end
+
+  describe "Hex.new!/3" do
+    test "init returns hex" do
+      assert Hex.new!(0, 1, -1) != nil
+    end
+
+    test "raises error on invalid hex" do
+      assert_raise ArgumentError, fn -> Hex.new!(1, 1, 1) end
     end
   end
 
   test "two tiles with same coordinates equal" do
-    first = Hex.new(0, 1, -1)
-    second = Hex.new(0, 1, -1)
+    first = Hex.new!(0, 1, -1)
+    second = Hex.new!(0, 1, -1)
 
     assert first == second
   end
 
   test "two tiles with different coordinates do not equal" do
-    first = Hex.new(0, 0, 0)
-    second = Hex.new(0, 1, -1)
+    first = Hex.new!(0, 0, 0)
+    second = Hex.new!(0, 1, -1)
     assert first != second
   end
 
   test "adding two hexes" do
-    first = Hex.new(0, 1, -1)
-    second = Hex.new(0, 2, -2)
-    assert Hex.add(first, second) == Hex.new(0, 3, -3)
+    first = Hex.new!(0, 1, -1)
+    second = Hex.new!(0, 2, -2)
+    assert Hex.add(first, second) == Hex.new!(0, 3, -3)
   end
 
   test "subtracting two hexes" do
-    first = Hex.new(1, 2, -3)
-    second = Hex.new(2, 3, -5)
-    assert Hex.sub(first, second) == Hex.new(-1, -1, 2)
+    first = Hex.new!(1, 2, -3)
+    second = Hex.new!(2, 3, -5)
+    assert Hex.sub(first, second) == Hex.new!(-1, -1, 2)
   end
 
   @tag :pending
   test "multiplying two hexes" do
-    first = Hex.new(1, 0, -1)
-    second = Hex.new(1, 0, -1)
-    assert Hex.mul(first, second) == Hex.new(0, 4, -4)
+    first = Hex.new!(1, 0, -1)
+    second = Hex.new!(1, 0, -1)
+    assert Hex.mul(first, second) == Hex.new!(0, 4, -4)
   end
 
   describe "neighbours" do
     setup do
-      {:ok, origin_hex: Hex.new(0, 0, 0),
-            offset_hex: Hex.new(1,-1, 0)}
+      {:ok, origin_hex: Hex.new!(0, 0, 0),
+            offset_hex: Hex.new!(1,-1, 0)}
     end
 
     test "produces correct neighbour counts for a distance", state do
