@@ -51,13 +51,6 @@ defmodule HexTileTest do
     assert Hex.sub(first, second) == Hex.new!(-1, -1, 2)
   end
 
-  @tag :pending
-  test "multiplying two hexes" do
-    first = Hex.new!(1, 0, -1)
-    second = Hex.new!(1, 0, -1)
-    assert Hex.mul(first, second) == Hex.new!(0, 4, -4)
-  end
-
   describe "neighbours" do
     setup do
       {:ok, origin_hex: Hex.new!(0, 0, 0),
