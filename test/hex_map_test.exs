@@ -7,7 +7,7 @@ defmodule HexGrid.Map.Test do
 
   test "inserting map tile should insert tile" do
     {:ok, map} = HexMap.new()
-    {result, map} = HexMap.insert(map, Hex.new(0, 0, 0))
+    {result, map} = HexMap.insert(map, Hex.new!(0, 0, 0))
 
     assert result == :ok
     assert map != nil
@@ -15,19 +15,19 @@ defmodule HexGrid.Map.Test do
 
   test "inserting map tile when tile already exists should fail" do
     {:ok, map} = HexMap.new()
-    {_, map} = HexMap.insert(map, Hex.new(0, 0, 0))
+    {_, map} = HexMap.insert(map, Hex.new!(0, 0, 0))
 
-    assert HexMap.insert(map, Hex.new(0, 0, 0)) == {:error, "Tile already exists"}
+    assert HexMap.insert(map, Hex.new!(0, 0, 0)) == {:error, "Tile already exists"}
   end
 
   test "setting value on non-existing tile should fail" do
     {_, map} = HexMap.new()
 
-    assert HexMap.set(map, Hex.new(0, 0, 0), :hello, "world") == {:error, "Tile does not exist"}
+    assert HexMap.set(map, Hex.new!(0, 0, 0), :hello, "world") == {:error, "Tile does not exist"}
   end
 
   test "setting value on tile should succeed" do
-    hex = Hex.new(0, 0, 0)
+    hex = Hex.new!(0, 0, 0)
     {:ok, map} = HexMap.new()
     {:ok, map} = HexMap.insert(map, hex)
 
@@ -45,7 +45,7 @@ defmodule HexGrid.Map.Test do
   end
 
   test "getting value should succeed" do
-    hex = Hex.new(0, 0, 0)
+    hex = Hex.new!(0, 0, 0)
     {_, map} = HexMap.new()
     {_, map} = HexMap.insert(map, hex)
     {_, map} = HexMap.set(map, hex, :hello, :world)
@@ -54,7 +54,7 @@ defmodule HexGrid.Map.Test do
   end
 
   test "getting value not set should return nil" do
-    hex = Hex.new(0, 0, 0)
+    hex = Hex.new!(0, 0, 0)
     {_, map} = HexMap.new()
     {_, map} = HexMap.insert(map, hex)
     {_, map} = HexMap.set(map, hex, :hello, :world)
