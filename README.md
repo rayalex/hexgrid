@@ -12,7 +12,7 @@ The package can be installed by listing it as a `hex` dependency:
 
 ```elixir
 def deps do
-  [{:hexgrid, "~> 1.0"}]
+  [{:hexgrid, "~> 2.0"}]
 end
 ```
 
@@ -34,12 +34,12 @@ Create a tile in a cube coordinate system.
 Example:
 
 ```elixir
-Hex.new(1, 2, 3)
+Hex.new(0, 0, 0)
 ```
 
 #### neighbour(hex, direction)
 
-Gets the neighbouring hex. Neighbours are just offsets on the given hex:
+Gets the neighbuoring hex. Neighbours are just offsets on the given hex:
 
 ```elixir
 0 -> Hex.new(+1, -1, 0)
@@ -131,7 +131,3 @@ hex = Hex.new(0, 0, 0)
 
 assert HexMap.get(map, hex, :hello) == {:ok, :world}
 ```
-
-### Pathfinding
-
-**TODO**

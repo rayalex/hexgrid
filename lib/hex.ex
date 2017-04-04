@@ -54,7 +54,7 @@ defmodule HexGrid.Hex do
   end
 
   @doc ~S"""
-  Adds two hexes together.
+  Adds two hexes together
 
   ## Examples
 
@@ -67,7 +67,7 @@ defmodule HexGrid.Hex do
   end
 
   @doc ~S"""
-  Subtracts two Hexes
+  Subtracts two hexes
 
   ## Examples
 
@@ -79,16 +79,20 @@ defmodule HexGrid.Hex do
   end
 
   @doc ~S"""
-  Multiples two hexes together
-  This is broken and maybe needs clarification for purpose
+  Multiples hex by scalar
 
+  ## Examples
+
+  iex> Hex.mul(Hex.new!(0, 1, -1), 2)
+  %Hex{q: 0, r: 2, s: -2}
   """
-  def mul(first, second) do
-    Hex.new!(first.q * second.q, first.r * second.r, first.s * second.s)
+  @spec mul(t, integer) :: t
+  def mul(hex, scalar) do
+    Hex.new!(hex.q * scalar, hex.r * scalar, hex.s * scalar)
   end
 
   @doc ~S"""
-  Gets the length of a hex from the origin
+  Gets the length of a hex
 
   ## Examples
 
@@ -98,6 +102,7 @@ defmodule HexGrid.Hex do
   iex> Hex.length(Hex.new!(0, 1, -1))
   1
   """
+  @spec length(t) :: integer
   def length(hex) do
     round((abs(hex.q) + abs(hex.r) + abs(hex.s)) / 2)
   end
@@ -116,15 +121,17 @@ defmodule HexGrid.Hex do
   iex> Hex.distance(Hex.new!(0, 0, 0), Hex.new!(-1, 5, -4))
   5
   """
+  @spec distance(t, t) :: integer
   def distance(first, second) do
     Hex.length(sub(first, second))
   end
 
   @doc ~S"""
-  Gets the direction. Allowed values are 0-5, inclusive.
+  Gets a hex with a given direction.
+  Allowed values are 0-5, inclusive.
 
   0 is hex immediately to the right. As the value increases
-  the direction vector rotates around counter-clockwise.
+  the direction vector rotates counter-clockwise.
 
   ## Examples
 
@@ -137,6 +144,7 @@ defmodule HexGrid.Hex do
   iex> Hex.cube_direction(6)
   :error
   """
+  @spec cube_direction(integer) :: t | :error
   def cube_direction(dir) do
     direction(dir)
   end
@@ -152,6 +160,7 @@ defmodule HexGrid.Hex do
   iex> Hex.neighbour(Hex.new!(3, -3, 0), 1)
   %Hex{q: 4, r: -3, s: -1}
   """
+  @spec neighbour(t, integer) :: t
   def neighbour(hex, dir) do
     add(hex, direction(dir))
   end
@@ -170,6 +179,7 @@ defmodule HexGrid.Hex do
   %Hex{q: 0, r: -1, s: 1}
   ]
   """
+  @spec neighbours(t) :: [t]
   def neighbours(hex) do
     Enum.map(1..5, fn (x) -> neighbour(hex, x) end)
   end
@@ -196,7 +206,7 @@ defmodule HexGrid.Hex do
    %HexGrid.Hex{q: 2, r: -1, s: -1}, %HexGrid.Hex{q: 2, r: 0, s: -2},
    %HexGrid.Hex{q: 2, r: 1, s: -3}]
   """
-  @spec neighbourhood(HexGrid.Hex.t, integer) :: [HexGrid.Hex.t]
+  @spec neighbourhood(t, integer) :: [t]
   def neighbourhood(hex, distance) do
     for dq <- -distance..distance,
         dr <- Enum.max([-distance, -dq - distance])..Enum.min([distance, -dq + distance]) do

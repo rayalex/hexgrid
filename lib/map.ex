@@ -13,7 +13,7 @@ defmodule HexGrid.Map do
   @type result :: {:ok, term} | {:error, term}
 
   @doc ~S"""
-  Creates empty map
+  Creates an empty map
 
   Examples:
 
@@ -26,7 +26,7 @@ defmodule HexGrid.Map do
   end
 
   @doc ~S"""
-  Creates Hexagonal-shaped grid with provided radius.
+  Creates a Hexagonal-shaped map with a given radius
 
   Examples:
 
@@ -46,7 +46,7 @@ defmodule HexGrid.Map do
   end
 
   @doc ~S"""
-  Adds the tile to the map.
+  Adds the tile to the map
   """
   @spec insert(t, HexGrid.Hex.t) :: result
   def insert(map, hex) do
