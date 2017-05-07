@@ -206,7 +206,7 @@ defmodule HexGrid.Hex do
    %HexGrid.Hex{q: 2, r: -1, s: -1}, %HexGrid.Hex{q: 2, r: 0, s: -2},
    %HexGrid.Hex{q: 2, r: 1, s: -3}]
   """
-  @spec neighbourhood(t, integer) :: [t]
+  @spec neighbourhood(t, non_neg_integer) :: [t]
   def neighbourhood(hex, distance) do
     for dq <- -distance..distance,
         dr <- Enum.max([-distance, -dq - distance])..Enum.min([distance, -dq + distance]) do
