@@ -25,12 +25,11 @@ defmodule HexGrid.Hex do
   ** (ArgumentError) Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:0, r:1, s:1} do not sum to 0
   """
   @spec new(number, number, number) :: t
-  def new!(q, r, s) do
-    if q + r + s != 0 do
-      raise ArgumentError, message: "Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:#{q}, r:#{r}, s:#{s}} do not sum to 0"
-    end
-
+  def new!(q, r, s) when q + r + s == 0 do
     %Hex{q: q, r: r, s: s}
+  end
+  def new!(q, r, s) do
+    raise ArgumentError, message: "Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:#{q}, r:#{r}, s:#{s}} do not sum to 0"
   end
 
   @doc ~S"""
