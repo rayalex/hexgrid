@@ -33,7 +33,7 @@ defmodule HexGrid.Map do
   iex> HexGrid.Map.new_hex(0)
   {:ok, %HexGrid.Map{data: %{{0, 0, 0} => %{}}}}
   """
-  @spec new_hex(integer) :: result
+  @spec new_hex(non_neg_integer) :: result
   def new_hex(radius) do
     data = for q <- (-radius)..radius,
       r1 = max(-radius, -q - radius),
@@ -59,7 +59,7 @@ defmodule HexGrid.Map do
   @doc """
   Sets the arbitrary value on a map.
   """
-  @spec set(t, HexGrid.Hex.t, any, any) :: result
+  @spec set(t, HexGrid.Hex.t, Map.key, Map.value) :: result
   def set(map, hex, key, value) do
     # we only want to set if tile exists
     case Map.get(map.data, key_of(hex)) do
@@ -71,7 +71,7 @@ defmodule HexGrid.Map do
   @doc """
   Gets the value from the map.
   """
-  @spec get(t, HexGrid.Hex.t, any) :: any
+  @spec get(t, HexGrid.Hex.t, Map.key) :: result
   def get(map, hex, key) do
     case Map.get(map.data, key_of(hex)) do
       nil -> {:error, "Tile does not exist"}
