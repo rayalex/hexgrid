@@ -31,7 +31,7 @@ defmodule HexGrid.Map do
   Examples:
 
   iex> HexGrid.Map.new_hex(0)
-  {:ok, %HexGrid.Map{data: %{{0, 0, 0} => %{}}}}
+  {:ok, %HexGrid.Map{data: %{%HexGrid.Hex{q: 0, r: 0, s: 0} => %{}}}}
   """
   @spec new_hex(non_neg_integer) :: result
   def new_hex(radius) do
@@ -39,7 +39,7 @@ defmodule HexGrid.Map do
       r1 = max(-radius, -q - radius),
       r2 = min( radius, -q + radius),
       r <- r1..r2,
-      do: {{q, r, -q - r}, %{}},
+      do: {HexGrid.Hex.new!(q, r, -q - r), %{}},
       into: Map.new
 
     {:ok, %HexGrid.Map{data: data}}
@@ -50,8 +50,8 @@ defmodule HexGrid.Map do
   """
   @spec insert(t, HexGrid.Hex.t) :: result
   def insert(map, hex) do
-    case Map.get(map.data, key_of(hex)) do
-      nil -> {:ok, update_in(map.data, &(Map.put(&1, key_of(hex), %{})))}
+    case Map.get(map.data, hex) do
+      nil -> {:ok, update_in(map.data, &(Map.put(&1, hex, %{})))}
       _   -> {:error, "Tile already exists"}
     end
   end
@@ -62,9 +62,9 @@ defmodule HexGrid.Map do
   @spec set(t, HexGrid.Hex.t, Map.key, Map.value) :: result
   def set(map, hex, key, value) do
     # we only want to set if tile exists
-    case Map.get(map.data, key_of(hex)) do
+    case Map.get(map.data, hex) do
       nil -> {:error, "Tile does not exist"}
-      _   -> {:ok, %HexGrid.Map{data: put_in(map.data, [key_of(hex), key], value)}}
+      _   -> {:ok, %HexGrid.Map{data: put_in(map.data, [hex, key], value)}}
     end
   end
 
@@ -73,13 +73,9 @@ defmodule HexGrid.Map do
   """
   @spec get(t, HexGrid.Hex.t, Map.key) :: result
   def get(map, hex, key) do
-    case Map.get(map.data, key_of(hex)) do
+    case Map.get(map.data, hex) do
       nil -> {:error, "Tile does not exist"}
-      _   -> {:ok, get_in(map.data, [key_of(hex), key])}
+      _   -> {:ok, get_in(map.data, [hex, key])}
     end
-  end
-
-  defp key_of(hex) do
-    {hex.r, hex.q, hex.s}
   end
 end
