@@ -10,6 +10,11 @@ defmodule HexTileTest do
       assert hex != nil
     end
 
+    test "doesn't mind fractional (nudged) hexes" do
+      assert {:ok, hex} = Hex.new(-1.0e-6, 1 - 1.0e-6, -1 + 2.0e-6)
+      assert hex != nil
+    end
+
     test "raises error on invalid hex" do
       assert {:error, message} = Hex.new(0, 1, 1)
       assert message == "Invalid coordinates in hex given, coordinate scalars q, r and s in %Hex{q:0, r:1, s:1} do not sum to 0"
