@@ -1,5 +1,7 @@
 # HexGrid
 
+[![Build Status](https://travis-ci.org/rayalex/hexgrid.svg?branch=master)](https://travis-ci.org/rayalex/hexgrid)
+
 Create hexagonal grids in Elixir. Provides basic computational and mapping support.
 
 Work is based on [this excellent article](http://www.redblobgames.com/grids/hexagons/implementation.html) from [redblobgames](http://www.redblobgames.com/).

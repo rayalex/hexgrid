@@ -17,7 +17,7 @@ defmodule Hex.Mixfile do
   end
 
   defp deps do
-    [{:ex_doc, "~> 0.14", only: :dev}]
+    [{:ex_doc, "~> 0.16", only: :dev}]
   end
 
   defp description do
