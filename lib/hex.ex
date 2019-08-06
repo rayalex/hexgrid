@@ -172,12 +172,12 @@ defmodule HexGrid.Hex do
 
   iex> Hex.neighbours(Hex.new!(0, 0, 0))
   [
+  %Hex{q: 1, r: -1, s: 0},
   %Hex{q: 1, r: 0, s: -1},
   %Hex{q: 0, r: 1, s: -1},
   %Hex{q: -1, r: 1, s: 0},
   %Hex{q: -1, r: 0, s: 1},
   %Hex{q: 0, r: -1, s: 1}
-  %Hex{q: 1, r: -1, s: 0}
   ]
   """
   @spec neighbours(t) :: [t]
