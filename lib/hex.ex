@@ -177,11 +177,12 @@ defmodule HexGrid.Hex do
   %Hex{q: -1, r: 1, s: 0},
   %Hex{q: -1, r: 0, s: 1},
   %Hex{q: 0, r: -1, s: 1}
+  %Hex{q: 1, r: -1, s: 0}
   ]
   """
   @spec neighbours(t) :: [t]
   def neighbours(hex) do
-    Enum.map(1..5, fn (x) -> neighbour(hex, x) end)
+    Enum.map(0..5, fn (x) -> neighbour(hex, x) end)
   end
 
   @doc ~S"""
