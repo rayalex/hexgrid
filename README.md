@@ -6,7 +6,7 @@ Create hexagonal grids in Elixir. Provides basic computational and mapping suppo
 
 Work is based on [this excellent article](http://www.redblobgames.com/grids/hexagons/implementation.html) from [redblobgames](http://www.redblobgames.com/).
 
-_See [hex package](https://hex.pm/packages/hexgrid/2.1.0) and [docs](https://hexdocs.pm/hexgrid/2.1.0) for more details._
+_See [hex package](https://hex.pm/packages/hexgrid/2.1.1) and [docs](https://hexdocs.pm/hexgrid/2.1.1) for more details._
 
 ## Installation
 
